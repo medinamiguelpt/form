@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Servicios - Fitness Business</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0F172A;
+            --primary-light: #1E293B;
+            --accent: #3B82F6;
+            --accent-dark: #2563EB;
+            --accent-light: #60A5FA;
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --text-muted: #94A3B8;
+            --border: #E2E8F0;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-hover: #F1F5F9;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 3rem 1.5rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 4rem 3rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px -15px rgba(15, 23, 42, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .form-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .category {
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .category-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .category-header p {
+            font-size: 0.938rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .group {
+            margin-bottom: 2rem;
+        }
+
+        .group-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .group-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .service-item {
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .service-item:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px -4px rgba(59, 130, 246, 0.15);
+        }
+
+        .service-item:has(input[type="checkbox"]:checked) {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%);
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px -4px rgba(59, 130, 246, 0.25);
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 3px;
+            border-radius: 4px;
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-label {
+            display: block;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.375rem;
+            font-size: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .service-desc {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .counter {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .counter.warning {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-color: var(--warning);
+        }
+
+        .counter p {
+            font-weight: 700;
+            color: #065F46;
+            margin: 0;
+            font-size: 0.938rem;
+        }
+
+        .counter.warning p {
+            color: #92400E;
+        }
+
+        .submit-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.02em;
+            min-width: 240px;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-submit:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            background: linear-gradient(135deg, var(--text-muted) 0%, #CBD5E1 100%);
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.6;
+        }
+
+        .note {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            .header {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-card {
+                padding: 1.5rem;
+            }
+
+            .category-header {
+                padding: 1.25rem 1.5rem;
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection color */
+        ::selection {
+            background: var(--accent-light);
+            color: white;
+        }
+
+        /* Focus styles */
+        input[type="checkbox"]:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Selección de Servicios</h1>
+            <p>Personaliza tu experiencia empresarial</p>
+        </div>
+
+        <div class="form-card">
+            <form id="servicesForm" action="https://formspree.io/f/xvzbrqgd" method="POST">
+                
+                <!-- Category 1: Elementos Esenciales -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3>⭐ Elementos Esenciales</h3>
+                        <p>Lo más importante</p>
+                    </div>
+
+                    <!-- Nombre e identidad visual -->
+                    <div class="group">
+                        <div class="group-title">Nombre e identidad visual de la empresa</div>
+                        <div class="group-subtitle">Cómo se perciben tu marca, logotipo y colores</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Nombre de la empresa/marca">
+                                <div class="service-content">
+                                    <span class="service-label">Nombre de la empresa/marca</span>
+                                    <span class="service-desc">Un nombre claro, moderno y fácil de recordar ayuda a los nuevos clientes a encontrarte rápidamente cuando buscan en Google, Instagram, TikTok o cuando solicitan un entrenador a ChatGPT. Un buen nombre se queda en la mente de las personas y transmite profesionalidad.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Eslogan breve y potente">
+                                <div class="service-content">
+                                    <span class="service-label">Eslogan breve y potente</span>
+                                    <span class="service-desc">Una frase corta debajo de tu nombre que explique lo que haces de una manera muy clara y motivadora. Esto ayuda a la gente a comprender de inmediato lo que ofreces y hace que aparezcas con más frecuencia en Google y en las respuestas de la IA.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Colores de la marca">
+                                <div class="service-content">
+                                    <span class="service-label">Colores de la marca</span>
+                                    <span class="service-desc">Elegimos colores frescos y fuertes que resulten motivadores y de alta calidad. El uso de los mismos colores en todas partes (aplicación, redes sociales, sitio web) hace que tu marca parezca seria, confiable y mucho más profesional.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Logotipo">
+                                <div class="service-content">
+                                    <span class="service-label">Logotipo</span>
+                                    <span class="service-desc">Un logotipo limpio y potente que se vea bien en teléfonos, redes sociales y cualquier producto futuro que vendas. Un logotipo atractivo hace que la gente te recuerde más rápido y da la sensación de que eres un entrenador serio y de alto nivel.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sitio web -->
+                    <div class="group">
+                        <div class="group-title">Sitio web</div>
+                        <div class="group-subtitle">Tu página principal en Internet es donde los clientes te conocen y reservan tus servicios</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Crear un sitio web profesional">
+                                <div class="service-content">
+                                    <span class="service-label">Crear un sitio web profesional</span>
+                                    <span class="service-desc">Creamos un sitio web moderno y fácil de usar que funciona en ordenadores, tabletas y teléfonos. Los clientes confían más en él y reservan más fácilmente. Esto es bueno y necesario porque ayuda con la búsqueda en Google y las herramientas de inteligencia artificial, por lo que más personas encuentran y eligen tus servicios en línea.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Redactar textos claros y amigables">
+                                <div class="service-content">
+                                    <span class="service-label">Redactar textos claros y amigables</span>
+                                    <span class="service-desc">Textos sencillos que expliquen tus servicios, precios y cómo reservar. Un texto bien redactado ayuda a que la gente lo entienda rápidamente. Esto es importante porque las palabras correctas hacen que los clientes se sientan cómodos y mejoran tu posición en las búsquedas de Google y de IA.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Añadir dibujos o iconos sencillos">
+                                <div class="service-content">
+                                    <span class="service-label">Añadir dibujos o iconos sencillos</span>
+                                    <span class="service-desc">Las ilustraciones claras ayudan a explicar los servicios y hacen que el sitio web sea más fácil de entender. Esto es útil porque simplifica las cosas a los clientes que prefieren imágenes/iconos en lugar de palabras y mejora los resultados de búsqueda.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Configurar analíticas del sitio web">
+                                <div class="service-content">
+                                    <span class="service-label">Configurar analíticas del sitio web</span>
+                                    <span class="service-desc">Conectamos herramientas para que puedas tomar el control y supervisar cómo los visitantes encuentran tu sitio y qué ven. Esto es bueno porque te permite saber qué funciona, para que puedas mejorar aún más tu sitio y conseguir más reservas.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Recibir reportes de analíticas">
+                                <div class="service-content">
+                                    <span class="service-label">Recibir reportes de analíticas</span>
+                                    <span class="service-desc">Con esta opción, nosotros nos encargamos de preparar y enviar reportes sencillos que muestran el número de visitantes y lo que funciona bien. Esto es importante porque te ahorra tiempo y te ayuda a ver cómo tu sitio web atrae a más clientes sin ningún esfuerzo.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Mantenimiento regular del sitio web">
+                                <div class="service-content">
+                                    <span class="service-label">Mantenimiento regular del sitio web</span>
+                                    <span class="service-desc">Mantenemos el sitio web seguro, rápido y actualizado para que nunca tengas que preocuparte. Esto es necesario porque un sitio seguro y rápido mantiene los datos de los clientes a salvo y ayuda con el posicionamiento en Google para una mejor visibilidad.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Listados de empresas -->
+                    <div class="group">
+                        <div class="group-title">Listados de empresas</div>
+                        <div class="group-subtitle">Asegurándonos de que aparezcas correctamente en Google Maps y Apple Maps</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Perfil de empresa en Google">
+                                <div class="service-content">
+                                    <span class="service-label">Perfil de empresa en Google</span>
+                                    <span class="service-desc">Creamos o corregimos tu perfil de Google con el horario, los servicios, la descripción y las respuestas a las preguntas frecuentes correctos. Esto te hace parecer digno de confianza cuando la gente busca entrenadores en tu zona o consulta Google Maps.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Gestión de preguntas y reseñas en Google">
+                                <div class="service-content">
+                                    <span class="service-label">Gestión de preguntas y reseñas en Google</span>
+                                    <span class="service-desc">Comprobamos regularmente si hay nuevas preguntas y reseñas y las respondemos de forma rápida y profesional (con tu aprobación). Las respuestas rápidas y amables generan confianza y te ayudan a aparecer en posiciones más altas en las búsquedas.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Apple Business Connect">
+                                <div class="service-content">
+                                    <span class="service-label">Apple Business Connect</span>
+                                    <span class="service-desc">Nos aseguramos de que tu negocio se muestre correctamente a las personas que utilizan iPhones, Apple Maps, Siri y CarPlay. Muchas personas utilizan dispositivos Apple, esto les ayuda a encontrarte y ponerse en contacto contigo fácilmente.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Aplicación móvil de fitness -->
+                    <div class="group">
+                        <div class="group-title">Aplicación móvil de fitness</div>
+                        <div class="group-subtitle">El lugar principal donde tus clientes entrenarán y se mantendrán en contacto contigo</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Aplicación para iOS y Android">
+                                <div class="service-content">
+                                    <span class="service-label">Aplicación para iOS y Android</span>
+                                    <span class="service-desc">Creamos una aplicación móvil totalmente personalizada y fácil de usar tanto para iPhone como para Android. En ella, tus clientes acceden a tus entrenamientos personalizados, siguen planes de dieta/nutrición, realizan un seguimiento de su progreso y reservan sesiones contigo, todo ello centralizado en un único lugar bajo tu marca.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Seguimiento del progreso por usuario y programas estructurados">
+                                <div class="service-content">
+                                    <span class="service-label">Seguimiento del progreso por usuario y programas estructurados</span>
+                                    <span class="service-desc">Las herramientas integradas permiten a los clientes registrar sus entrenamientos, anotar métricas clave (peso, cintura, medidas, fotos del progreso tomadas por ellos mismos), marcar hábitos diarios y visualizar las mejoras a lo largo del tiempo con gráficos. Los programas estructurados preconfigurados o personalizados permiten empezar de inmediato, mientras que el registro flexible permite realizar ajustes continuos.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Área de miembros y sistema de reservas">
+                                <div class="service-content">
+                                    <span class="service-label">Área de miembros y sistema de reservas</span>
+                                    <span class="service-desc">Una zona segura y exclusiva para clientes de pago, además de un calendario intuitivo que muestra tu disponibilidad. Los clientes reservan sesiones de entrenamiento personal directamente en la aplicación con recordatorios automáticos (notificaciones push) para no perderse ninguna sesión.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Configuración de analíticas de la aplicación">
+                                <div class="service-content">
+                                    <span class="service-label">Configuración de analíticas de la aplicación</span>
+                                    <span class="service-desc">Integramos un potente sistema de seguimiento (pero centrado en la privacidad) para supervisar las descargas, la duración de las sesiones, los programas más populares, las tasas de reserva, la retención y los patrones de participación. Estos datos guían las mejoras continuas para atraer y retener a más clientes.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Reportes de analíticas de la aplicación">
+                                <div class="service-content">
+                                    <span class="service-label">Reportes de analíticas</span>
+                                    <span class="service-desc">Olvídate de rebuscar entre datos sin procesar, te proporcionamos reportes sencillos que destacan los logros clave: crecimiento de nuevos usuarios, usuarios activos, reservas de sesiones, contenido con mejor rendimiento y recomendaciones claras sobre lo que está impulsando los resultados.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2: Visibilidad y optimización en línea -->
+                <!-- Category 2: Visibilidad y optimización en línea -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3>🔍 Visibilidad y Optimización en Línea</h3>
+                        <p>Optimización para motores de búsqueda</p>
+                    </div>
+
+                    <div class="group">
+                        <div class="group-title">Optimización para motores de búsqueda (SEO)</div>
+                        <div class="group-subtitle">Ayudamos a que las personas te encuentren cuando buscan en Google</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Mayor posicionamiento en los resultados de búsqueda de Google">
+                                <div class="service-content">
+                                    <span class="service-label">Mayor posicionamiento en los resultados de búsqueda de Google</span>
+                                    <span class="service-desc">Mejoramos tu sitio web y tu información en línea para que, cuando alguien escriba «entrenador personal cerca de mí», «entrenador de fitness en línea», «programa para perder grasa» o el nombre de tu ciudad + entrenador, tu nombre aparezca en una posición mucho más alta. Más personas te ven = más clientes sin pagar por anuncios.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="group">
+                        <div class="group-title">Optimización de la tienda de aplicaciones (ASO)</div>
+                        <div class="group-subtitle">Ayudamos a las personas a encontrar tu aplicación en la App Store o Google Play</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Mejor visibilidad en la App Store y Google Play">
+                                <div class="service-content">
+                                    <span class="service-label">Mejor visibilidad en la App Store y Google Play</span>
+                                    <span class="service-desc">Escribimos el título, la descripción y elegimos las mejores palabras clave para que, cuando alguien busque «aplicación de fitness», «planificador de entrenamientos», «aplicación de entrenador personal» o palabras similares, tu aplicación aparezca más arriba en la lista. Mejor posición = muchas más descargas sin gastar dinero extra en publicidad.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="group">
+                        <div class="group-title">Optimización del motor generativo (GEO)</div>
+                        <div class="group-subtitle">Ayudamos a las herramientas de IA a recomendarte</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Aparece en las respuestas de los asistentes de IA">
+                                <div class="service-content">
+                                    <span class="service-label">Aparece en las respuestas de los asistentes de IA</span>
+                                    <span class="service-desc">Organizamos tu información en línea para que cuando alguien le pregunte a ChatGPT, Gemini u otras IA «¿quién es un buen entrenador personal?», «el mejor programa de entrenamiento en línea», «entrenador de fitness para principiantes», es mucho más probable que la IA te recomiende. Esto supone una gran ventaja, ya que cada vez más personas utilizan la IA para encontrar servicios.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 3: Crecimiento -->
+                <!-- Category 3: Crecimiento -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3>📈 Crecimiento</h3>
+                        <p>Consigue más clientes y aumenta tus ingresos</p>
+                    </div>
+
+                    <!-- Redes sociales -->
+                    <div class="group">
+                        <div class="group-title">Redes sociales (Instagram, TikTok, YouTube, Threads...)</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Perfiles en redes sociales">
+                                <div class="service-content">
+                                    <span class="service-label">Perfiles en redes sociales</span>
+                                    <span class="service-desc">Creamos o arreglamos tus perfiles para que se vean profesionales, atractivos y fáciles de encontrar. Un buen perfil hace que la gente te siga y confíe más en ti.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Gestión de redes sociales">
+                                <div class="service-content">
+                                    <span class="service-label">Gestión de redes sociales</span>
+                                    <span class="service-desc">Planificamos y publicamos regularmente, creamos historias y reels, respondemos comentarios y mensajes. Esto mantiene tu página activa y atrae nuevos seguidores y clientes sin que tengas que dedicarle horas todos los días.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Configuración de analíticas de redes sociales">
+                                <div class="service-content">
+                                    <span class="service-label">Configuración de analíticas de redes sociales</span>
+                                    <span class="service-desc">Conectamos herramientas que muestran cuántas personas ven tus publicaciones, les dan «Me gusta», las comentan, las guardan o envían mensajes. Esto nos ayuda a comprender qué contenido le gusta más a tu público.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Reportes de redes sociales">
+                                <div class="service-content">
+                                    <span class="service-label">Reportes de redes sociales</span>
+                                    <span class="service-desc">Te enviamos reportes fáciles de leer que muestran cuántos seguidores nuevos tienes, cuánto engagement y cuántas personas se han puesto en contacto contigo desde las redes sociales.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Publicidad de pago -->
+                    <div class="group">
+                        <div class="group-title">Publicidad de pago</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Anuncios de pago en TikTok">
+                                <div class="service-content">
+                                    <span class="service-label">Anuncios de pago en TikTok</span>
+                                    <span class="service-desc">Creamos anuncios con tu contenido que se muestran a personas interesadas en el fitness. Esto atrae nuevos clientes mucho más rápido que esperar al crecimiento orgánico.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Anuncios de Google y YouTube">
+                                <div class="service-content">
+                                    <span class="service-label">Anuncios de Google y YouTube</span>
+                                    <span class="service-desc">Tu anuncio aparece cuando las personas buscan entrenadores o ven vídeos de fitness, es decir, exactamente las personas que están buscando ayuda en ese momento.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Meta Ads (Facebook + Instagram)">
+                                <div class="service-content">
+                                    <span class="service-label">Meta Ads (Facebook + Instagram)</span>
+                                    <span class="service-desc">Mostramos anuncios atractivos a personas a las que les gustan las páginas de fitness, siguen a entrenadores o buscan temas relacionados con la salud.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Configuración de analíticas y seguimiento de la publicidad">
+                                <div class="service-content">
+                                    <span class="service-label">Configuración de analíticas y seguimiento de la publicidad</span>
+                                    <span class="service-desc">Vemos exactamente cuántas personas vieron el anuncio, hicieron clic en él, visitaron la página de tu aplicación o reservaron una sesión.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Reportes de analíticas de los anuncios">
+                                <div class="service-content">
+                                    <span class="service-label">Reportes de analíticas de los anuncios</span>
+                                    <span class="service-desc">Enviamos reportes sencillos: cuánto se ha gastado, cuántas personas han hecho clic, cuántas han reservado, para que sepas si los anuncios están generando ingresos.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Marketing por correo electrónico -->
+                    <div class="group">
+                        <div class="group-title">Marketing por correo electrónico</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Sistema de marketing por correo electrónico">
+                                <div class="service-content">
+                                    <span class="service-label">Sistema de marketing por correo electrónico</span>
+                                    <span class="service-desc">Creamos una forma segura y correcta de recopilar las direcciones de correo electrónico de tus clientes y enviarles correos electrónicos atractivos sin que sean bloqueados o vayan a parar a la bandeja de spam.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Campañas del correo electrónico">
+                                <div class="service-content">
+                                    <span class="service-label">Campañas del correo electrónico</span>
+                                    <span class="service-desc">Creamos correos electrónicos atractivos con consejos para entrenar, ofertas especiales, motivación para progresar, recordatorios sobre sesiones o nuevos programas. Esto hace que los antiguos clientes vuelvan y se vendan más sesiones/paquetes sin que tú tengas que escribir nada.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Configuración de analíticas del correo electrónico">
+                                <div class="service-content">
+                                    <span class="service-label">Configuración de analíticas del correo electrónico</span>
+                                    <span class="service-desc">Vemos quién abre los correos electrónicos, quién hace clic en los enlaces que contienen y quién reserva algo después de leerlos.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Reportes del correo electrónico">
+                                <div class="service-content">
+                                    <span class="service-label">Reportes del correo electrónico</span>
+                                    <span class="service-desc">Reportes muy sencillos que muestran: cuántas personas recibieron el correo electrónico, cuántas lo abrieron, cuántas hicieron clic y cuántas realmente reservaron o compraron algo.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Marketing por SMS -->
+                    <div class="group">
+                        <div class="group-title">Marketing por SMS (mensajes de texto)</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Sistema de marketing por SMS">
+                                <div class="service-content">
+                                    <span class="service-label">Sistema de marketing por SMS</span>
+                                    <span class="service-desc">Creamos una forma segura de recopilar números de teléfono y enviar mensajes de texto cortos que casi todo el mundo lee.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Mensajes SMS">
+                                <div class="service-content">
+                                    <span class="service-label">Mensajes SMS</span>
+                                    <span class="service-desc">Enviamos mensajes cortos y directos como: «Hola [nombre], tu sesión es mañana a las 18:00», «Solo quedan 2 plazas esta semana, responde SÍ para reservar», «El nuevo reto de 30 días comienza el lunes, ¿te apuntas?». La gente abre los mensajes de texto muy rápidamente, lo que genera reservas y recordatorios rápidos.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Configuración de analíticas de SMS">
+                                <div class="service-content">
+                                    <span class="service-label">Configuración de analíticas de SMS</span>
+                                    <span class="service-desc">Hacemos un seguimiento de cuántos mensajes se han entregado, cuántas personas han respondido y cuántas han reservado después de recibir el mensaje.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Reportes de analíticas de SMS">
+                                <div class="service-content">
+                                    <span class="service-label">Reportes de analíticas de SMS</span>
+                                    <span class="service-desc">Reportes sencillos que muestran: cuántos mensajes se enviaron, cuántos se leyeron/entregaron, cuántas personas respondieron o reservaron, para que puedas ver exactamente cuánto dinero generan los mensajes.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Productos y mercancía -->
+                    <div class="group">
+                        <div class="group-title">Productos y mercancía</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Tienda de productos (dentro de la aplicación o sitio web independiente)">
+                                <div class="service-content">
+                                    <span class="service-label">Tienda de productos</span>
+                                    <span class="service-desc">Puedes vender camisetas, sudaderas, planes de entrenamiento digitales, libros de recetas, etc. directamente a tus clientes.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Pagos y compras en línea">
+                                <div class="service-content">
+                                    <span class="service-label">Pagos y compras en línea</span>
+                                    <span class="service-desc">Una forma segura y fácil para que los clientes te compren, con una gran variedad de métodos de pago.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 4: Compromiso (AI Agents) -->
+                <!-- Category 4: Compromiso (AI Agents) -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3>🤖 Compromiso: Agentes de IA y Automatización</h3>
+                        <p>No vuelvas a perder un cliente, sea la hora que sea</p>
+                    </div>
+
+                    <!-- Agente de reservas y atención al cliente con IA -->
+                    <div class="group">
+                        <div class="group-title">Agente de reservas y atención al cliente con IA</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Chatbot con IA en el sitio web y dentro de la aplicación">
+                                <div class="service-content">
+                                    <span class="service-label">Chatbot con IA en el sitio web y dentro de la aplicación</span>
+                                    <span class="service-desc">Una ventana de chat amigable donde las personas pueden preguntar precios, disponibilidad, programas y reservar sesiones las 24 horas del día, los 7 días de la semana.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Asistente de IA en WhatsApp">
+                                <div class="service-content">
+                                    <span class="service-label">Asistente de IA en WhatsApp</span>
+                                    <span class="service-desc">Respuestas automáticas en WhatsApp para preguntas sobre precios, horarios y reservas. Mucha gente prefiere WhatsApp, y las respuestas rápidas cierran más ventas.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Respuesta de voz con IA en el teléfono">
+                                <div class="service-content">
+                                    <span class="service-label">Respuesta de voz con IA en el teléfono</span>
+                                    <span class="service-desc">El teléfono se responde las 24 horas del día con una voz natural. Los clientes pueden hacer preguntas y reservar directamente hablando.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Análisis de todas las conversaciones con IA">
+                                <div class="service-content">
+                                    <span class="service-label">Análisis de todas las conversaciones con IA</span>
+                                    <span class="service-desc">Ve cuántas personas hablaron con la IA y cuántas reservaron.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Reportes de IA de atención al cliente">
+                                <div class="service-content">
+                                    <span class="service-label">Reportes de IA</span>
+                                    <span class="service-desc">Resumen sencillo: número de conversaciones, número de reservas, preguntas principales que hace la gente.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Agente personal de entrenamiento con IA -->
+                    <div class="group">
+                        <div class="group-title">Agente personal de entrenamiento con IA</div>
+                        <div class="group-subtitle">Solo para miembros de pago, dentro de la aplicación</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Planes de entrenamiento personalizados automáticamente">
+                                <div class="service-content">
+                                    <span class="service-label">Planes de entrenamiento personalizados automáticamente</span>
+                                    <span class="service-desc">La IA crea programas de entrenamiento personalizados basados en el objetivo, el nivel y el equipo de cada cliente, siguiendo tu estilo.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Recomendaciones nutricionales personalizadas">
+                                <div class="service-content">
+                                    <span class="service-label">Recomendaciones nutricionales personalizadas</span>
+                                    <span class="service-desc">La IA sugiere comidas y macros según el objetivo del cliente y tu filosofía.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Ajustes del plan basados en el progreso">
+                                <div class="service-content">
+                                    <span class="service-label">Ajustes del plan basados en el progreso</span>
+                                    <span class="service-desc">Los clientes dan su opinión → La IA actualiza el plan automáticamente.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Análisis y reportes de entrenador IA">
+                                <div class="service-content">
+                                    <span class="service-label">Análisis y reportes</span>
+                                    <span class="service-desc">Ve cuántos miembros utilizan el entrenador de IA y cuál es su grado de satisfacción.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Agente de información empresarial de IA -->
+                    <div class="group">
+                        <div class="group-title">Agente de información empresarial de IA</div>
+                        
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Análisis automático de todas tus cifras">
+                                <div class="service-content">
+                                    <span class="service-label">Análisis automático de todas tus cifras</span>
+                                    <span class="service-desc">Analiza el uso de la aplicación, las reservas, los ingresos, las cancelaciones, los programas populares...</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Consejos claros de negocio con IA">
+                                <div class="service-content">
+                                    <span class="service-label">Consejos claros</span>
+                                    <span class="service-desc">Recomendaciones como: subir el precio aquí, crear un nuevo programa allí, cambiar el enfoque de la publicidad...</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Reportes de información empresarial con IA">
+                                <div class="service-content">
+                                    <span class="service-label">Reportes de información</span>
+                                    <span class="service-desc">Resumen fácil de entender de lo que funciona y lo que hay que mejorar.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 5: Networking -->
+                <!-- Category 5: Networking -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3>🔗 Networking</h3>
+                        <p>Formas fáciles para que la gente guarde tu contacto</p>
+                    </div>
+
+                    <div class="group">
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Tarjetas de visita con código QR">
+                                <div class="service-content">
+                                    <span class="service-label">Tarjetas de visita con código QR</span>
+                                    <span class="service-desc">Tarjetas atractivas que puedes entregar en persona. La gente escanea el QR → guarda instantáneamente tu contacto o abre tu aplicación/reserva.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Tarjetas NFC">
+                                <div class="service-content">
+                                    <span class="service-label">Tarjetas NFC</span>
+                                    <span class="service-desc">Tarjetas inteligentes, la persona solo tiene que tocar la tarjeta con el teléfono → guarda tu contacto + abre la aplicación o el enlace de reserva. Muy moderno e impresionante.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="service-item">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="servicio" value="Compartir rápidamente los contactos">
+                                <div class="service-content">
+                                    <span class="service-label">Compartir rápidamente los contactos en tu teléfono</span>
+                                    <span class="service-desc">Configuramos tu teléfono para que puedas compartir todos tus contactos (nombre, teléfono, WhatsApp, enlace a la aplicación) con uno o dos toques utilizando AirDrop (iPhone) o Nearby Share (Android).</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Counter and Submit -->
+                <div id="counter" class="counter warning">
+                    <p>⚠️ Por favor, selecciona al menos un servicio antes de enviar</p>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="btn-submit" id="submitBtn" disabled>
+                        ✉️ Enviar Selección
+                    </button>
+                    <p class="note">Serás redirigido a una página de confirmación</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('servicesForm');
+        const counter = document.getElementById('counter');
+        const submitBtn = document.getElementById('submitBtn');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        function updateCounter() {
+            const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            
+            if (checkedCount === 0) {
+                counter.className = 'counter warning';
+                counter.innerHTML = '<p>⚠️ Por favor, selecciona al menos un servicio antes de enviar</p>';
+                submitBtn.disabled = true;
+            } else {
+                counter.className = 'counter';
+                counter.innerHTML = `<p>✓ Has seleccionado ${checkedCount} servicio${checkedCount !== 1 ? 's' : ''}</p>`;
+                submitBtn.disabled = false;
+            }
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateCounter);
+        });
+
+        // Make entire service item clickable
+        document.querySelectorAll('.service-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    updateCounter();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
